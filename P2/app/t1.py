@@ -10,7 +10,7 @@ def hello_world():
   usuarios = []
   usuarios.append({'name': 'Pene', 'dni': 123456})
   usuarios.append({'name': 'Pedro', 'dni': 5984})
-  return render_template('hola.html', var='Perro', usuarios=usuarios)
+  return render_template('main.html', var='Perro', usuarios=usuarios)
 
 
 @app.route('/un_texto_plano')
@@ -34,7 +34,7 @@ def texto_html():
   return 'Un texto <b>HTML</b> cañon'
 
 
-@app.route('/archivo')
+@app.route('/una_imagen')
 def imagen():
   response = Response()
   response.headers['Content-Type'] = 'image/jpg'
@@ -43,6 +43,11 @@ def imagen():
   imagen = f.read()
   response.set_data(imagen)
   return response
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+  return render_template('404.html'), 404
 
 
 if __name__ == '__main__':

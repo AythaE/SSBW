@@ -9,7 +9,8 @@ app = Flask(__name__)
 @app.route('/')
 def index():
   if 'username' in session:
-    return render_template('home.html')
+    usuario = session['username']
+    return render_template('home.html', usuario=usuario)
   return redirect(url_for('login'))
 
 
@@ -21,36 +22,37 @@ def login():
   return render_template('signin.html')
 
 
+@app.route('/logout')
+def logout():
+  if 'username' in session:
+    # remove the username from the session if it's there
+    session.pop('username', None)
+    return redirect(url_for('login'))
+  return redirect(url_for('login'))
+
+
 @app.route('/un_texto_plano')
 def texto_plano():
-  response = Response()
-  response.headers['Content-Type'] = 'text/plain; charset=utf-8'
-  response.set_data("Un texto plano cañon")
-  return response
-
-
-@app.route('/este_texto_plano/<text>')
-def este_texto_plano(text):
-  response = Response()
-  response.headers['Content-Type'] = 'text/plain; charset=utf-8'
-  response.set_data(text)
-  return response
+  if 'username' in session:
+    texto = "Un texto plano cañon"
+    return render_template('text_plain.html', texto=texto)
+  return redirect(url_for('login'))
 
 
 @app.route('/un_texto_html')
 def texto_html():
-  return 'Un texto <b>HTML</b> cañon'
+  if 'username' in session:
+    texto = 'Un texto <b>HTML</b> cañon'
+    return render_template('text_html.html', texto=texto)
+
+  return redirect(url_for('login'))
 
 
 @app.route('/una_imagen')
 def imagen():
-  response = Response()
-  response.headers['Content-Type'] = 'image/jpg'
-
-  f = open('./static/img/juego-perro-1.jpg', 'rb')
-  imagen = f.read()
-  response.set_data(imagen)
-  return response
+  if 'username' in session:
+    return render_template('imagen.html')
+  return redirect(url_for('login'))
 
 
 @app.errorhandler(404)
@@ -67,4 +69,4 @@ if __name__ == '__main__':
   # 0.0.0.0 para permitir conexiones
   #         desde cualquier sitio.
   #         Ojo, peligroso en solo
-  #         en modo debu
+  #         en modo debug

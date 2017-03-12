@@ -1,7 +1,7 @@
 {% extends "layout.html" %} {% block navbar %}
 <ul class="navbar-nav  mr-auto">
-    <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+    <li class="nav-item">
+        <a class="nav-link" href="/">Home</a>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="/un_texto_plano">Texto plano</a>
@@ -23,6 +23,14 @@
 </ul>
 {% endblock %} {% block content %}
 <div class="starter-template">
-    <h1>Bienvenido {{ usuario }}</h1>
+    <div class="jumbotron">
+      <h1 class="display-3">Página no encontrada</h1>
+      <p class="lead">Error 404: No se ha encontrado la página buscada</p>
+      <hr class="m-y-md">
+      <p>
+          <a href="/">Volver al inicio</a>
+      </p>
+
+    </div>
 </div>
 {% endblock %}

@@ -1,7 +1,7 @@
 {% extends "layout.html" %} {% block navbar %}
 <ul class="navbar-nav  mr-auto">
-    <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+    <li class="nav-item ">
+        <a class="nav-link" href="/">Home</a>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="/un_texto_plano">Texto plano</a>
@@ -10,7 +10,7 @@
         <a class="nav-link" href="/un_texto_html">Texto html</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="/una_imagen">Imágen</a>
+        <a class="nav-link active" href="/una_imagen">Imágen <span class="sr-only">(current)</span></a>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="#">Base de Datos</a>
@@ -23,6 +23,6 @@
 </ul>
 {% endblock %} {% block content %}
 <div class="starter-template">
-    <h1>Bienvenido {{ usuario }}</h1>
+    <img src="{{ url_for('static', filename= 'img/juego-perro-1.jpg') }}" alt="" class="img-rounded center-block">
 </div>
 {% endblock %}

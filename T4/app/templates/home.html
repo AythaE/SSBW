@@ -4,7 +4,7 @@
         <a class="nav-link" href="/restaurantes">Listar <span class="sr-only">(current)</span></a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="/aniadir">Añadir</a>
+        <a class="nav-link" href="/restaurantes/aniadir">Añadir</a>
     </li>
 
 </ul>
@@ -16,8 +16,12 @@
 </ul>
 {% endblock %} {% block content %}
 <div class="starter-template">
-    {% block header %} {% endblock %}
-    <table class="table table-striped table-responsive">
+    {% block header %}
+    <h3>Últimos restuarantes añadidos</h3>
+
+    {% endblock %}
+    <br />
+    <table class="table table-striped">
       <thead class="thead-inverse" style="text-align: center;">
         <tr>
           <th>Nombre</th>

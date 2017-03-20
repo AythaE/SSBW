@@ -10,4 +10,5 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^test/$', views.test, name='test'),
     url(r'^buscar$', views.buscar, name='buscar'),
+    url(r'^aniadir$', views.add, name='add'),
 ]

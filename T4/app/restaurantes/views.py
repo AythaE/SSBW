@@ -1,5 +1,6 @@
-from django.shortcuts import HttpResponse, render
+from django.shortcuts import HttpResponse, redirect, render
 
+from .forms import RestaurantesForm
 # El punto se refiere al directorio de este archivo
 from .models import restaurants
 
@@ -10,8 +11,10 @@ from .models import restaurants
 
 
 def index(request):
+  ultimosRestaurants = list(reversed(
+      restaurants.objects[len(restaurants.objects) - 25:len(restaurants.objects)]))
   context = {
-      'resta': restaurants.objects[:100],
+      'resta': ultimosRestaurants,
   }
   return render(request, 'home.html', context)
 
@@ -34,3 +37,21 @@ def buscar(request):
       'busqueda': cocina,
   }
   return render(request, 'buscar.html', context)
+
+
+def add(request):
+  formu = RestaurantesForm()
+
+  if request.method == "POST":
+
+    formu = RestaurantesForm(data=request.POST)
+    if formu.is_valid():                    # valida o añade errores
+
+      # dato = formu.cleaned_data['dato']  # datos sueltos
+      formu.save()                         # si está ligado al model
+      return redirect(url('index'))
+  # GET o error
+  context = {
+      'form': formu,
+  }
+  return render(request, 'aniadir.html', context)

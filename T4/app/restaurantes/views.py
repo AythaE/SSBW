@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.shortcuts import HttpResponse, redirect, render
 
 from .forms import RestaurantesForm

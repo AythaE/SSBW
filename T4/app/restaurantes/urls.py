@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # restaurantes/urls.py
 
 from django.conf.urls import url

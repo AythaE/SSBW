@@ -2,7 +2,7 @@ from django.shortcuts import HttpResponse, redirect, render
 
 from .forms import RestaurantesForm
 # El punto se refiere al directorio de este archivo
-from .models import restaurants
+from .models import addr, restaurants
 
 
 # Create your views here.
@@ -48,8 +48,17 @@ def add(request):
     if formu.is_valid():                    # valida o añade errores
 
       # dato = formu.cleaned_data['dato']  # datos sueltos
-      formu.save()                         # si está ligado al model
-      return redirect(url('index'))
+      nombre = formu.cleaned_data['nombre']
+      cocina = formu.cleaned_data['cocina']
+      barrio = formu.cleaned_data['barrio']
+      calle = formu.cleaned_data['dirección']
+
+      direc = addr(street=calle)
+      r = restaurants(name=nombre, cuisine=cocina,
+                      borough=barrio, address=direc)
+      # formu.save()                         # si está ligado al model
+      r.save()
+      return redirect(index)
   # GET o error
   context = {
       'form': formu,

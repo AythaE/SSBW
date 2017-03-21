@@ -25,18 +25,18 @@
       <thead class="thead-inverse" style="text-align: center;">
         <tr>
           <th>Nombre</th>
-          <th>Dirección</th>
           <th>Cocina</th>
-          <th>Coordenadas</th>
+          <th>Dirección</th>
+          <th>Barrio</th>
         </tr>
       </thead>
       <tbody>
           {% for r in resta %}
           <tr>
             <td>{{r.name}}</td>
-            <td>{{r.address.street}}</td>
             <td>{{r.cuisine}}</td>
-            <td>{{r.address.coord}}</td>
+            <td>{{r.address.street}}</td>
+            <td>{{r.borough}}</td>
           </tr>
 
           {% endfor %}

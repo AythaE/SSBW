@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% load bootstrap4 %}
+
+{% block content %}
+
+<form class="form-signin" method="post" action=".">
+    {% csrf_token %}
+    <h2 class="form-signin-heading">Registro</h2>
+    {% bootstrap_form form %}
+    {% buttons %}
+        <button type="submit" class="btn btn-primary">
+       {% bootstrap_icon "star" %} Registrarse
+   </button> {% endbuttons %}
+
+
+    <hr />
+    <input type="hidden" name="next" value="{{ next }}" />
+</form>
+
+
+{% endblock %}

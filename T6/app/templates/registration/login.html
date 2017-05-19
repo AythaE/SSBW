@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% load bootstrap4 %}
+{% block content %}
+    <form class="form-signin" method="post" action=".">
+        {% csrf_token %}
+        <h2 class="form-signin-heading">Por favor, inicie sesión</h2>
+        {% bootstrap_form form %}
+        {% buttons %}
+            <button type="submit" class="btn btn-primary">
+           {% bootstrap_icon "star" %} Iniciar sesión
+       </button> {% endbuttons %}
+
+
+        <hr />
+        <input type="hidden" name="next" value="{{ next }}" />
+    </form>
+
+
+    <p>¿No es un miembro? ¡<a href="{% url 'registration_register' %}">Regístrese</a>!</p>
+
+</div>
+<!-- /container -->
+{% endblock %}

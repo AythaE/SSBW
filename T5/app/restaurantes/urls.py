@@ -12,7 +12,7 @@ urlpatterns = [
     url(r'^test/$', views.test, name='test'),
     url(r'^buscar$', views.buscar, name='buscar'),
     url(r'^aniadir$', views.add, name='add'),
+    url(r'^restaurante/(?P<name>.+)/imagen$', views.imagen, name='imagen'),
     url(r'^restaurante/(?P<name>.+)$', views.restaurante, name='restaurante'),
-
 
 ]

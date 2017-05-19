@@ -3,7 +3,7 @@ from django.shortcuts import HttpResponse, redirect, render
 
 from .forms import RestaurantesForm
 # El punto se refiere al directorio de este archivo
-from .models import addr, restaurants
+from .models import addr, image, restaurants
 
 
 # Create your views here.
@@ -12,8 +12,9 @@ from .models import addr, restaurants
 
 
 def index(request):
+  restaurantes = restaurants.objects
   ultimosRestaurants = list(reversed(
-      restaurants.objects[len(restaurants.objects) - 25:len(restaurants.objects)]))
+      restaurantes[len(restaurantes) - 10:len(restaurantes)]))
   context = {
       'resta': ultimosRestaurants,
   }
@@ -45,9 +46,9 @@ def add(request):
 
   if request.method == "POST":
 
-    formu = RestaurantesForm(request.POST, request.FILES)
+    formu = RestaurantesForm(data=request.POST)
     if formu.is_valid():                    # valida o añade errores
-
+      print(formu.cleaned_data)
       # datos sueltos
 
       nombre = formu.cleaned_data['nombre']
@@ -56,14 +57,13 @@ def add(request):
       calle = formu.cleaned_data['dirección']
 
       # Revisar si esto funciona así
-      imagen = formu.cleaned_data['imagen']
-
+      imagen = request.FILES.get('imagen')
       tipo_foto = imagen.content_type
       # Para guardar tipo de archivo y nombre
       direc = addr(street=calle)
       i = image(extension=tipo_foto, img=imagen)
       r = restaurants(name=nombre, cuisine=cocina,
-                      borough=barrio, address=direc, image=imagen)
+                      borough=barrio, address=direc, image=i)
 
       r.save()
 
@@ -80,8 +80,10 @@ def add(request):
 
 
 def restaurante(request, name):
-  resta =
+  print("\n\nMostrando restaurante: " + name)
+  resta = restaurants.objects(name__exact=name)[0]
 
+  print(resta)
   context = {
       'resta': resta,
   }
@@ -89,10 +91,15 @@ def restaurante(request, name):
 
 
 # /restaurante/nombreRest/imagen/
-def imagen(request, nombreResta):
 
-  res = restaurants.object(name=nombreResta)
 
-  img = res.image.read()
+def imagen(request, name):
 
-  return HttpResponse(img, content_type="image")
+  res = restaurants.objects(name__exact=name)[0]
+
+  print("\n\n recuperando imagen de: " + res.name)
+  img = res.image.img.read()
+
+  content_type = res.image.extension
+
+  return HttpResponse(img, content_type=content_type)

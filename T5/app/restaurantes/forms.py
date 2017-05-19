@@ -11,7 +11,7 @@ class RestaurantesForm(forms.Form):
   cocina = forms.CharField()
   dirección = forms.CharField()
   barrio = forms.CharField(widget=forms.TextInput())
-  imagen = forms.ImageField()
+  imagen = forms.ImageField(required=False)
 
 
 '''

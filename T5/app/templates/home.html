@@ -33,7 +33,7 @@
       <tbody>
           {% for r in resta %}
           <tr>
-            <td>{{r.name}}</td>
+            <td><a href="/restaurantes/restaurante/{{r.name}}">{{r.name}}</a></td>
             <td>{{r.cuisine}}</td>
             <td>{{r.address.street}}</td>
             <td>{{r.borough}}</td>

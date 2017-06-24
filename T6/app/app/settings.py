@@ -53,8 +53,18 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
 ]
-# and are trying to access pages requiring authenticati
+
+# If True, the user will be automatically logged in.
+REGISTRATION_AUTO_LOGIN = True
+# The page you want users to arrive at after they successful log in
+LOGIN_REDIRECT_URL = '/restaurantes/'
+# The page users are directed to if they are not logged in,
+LOGIN_URL = '/accounts/login/'
+# and are trying to access pages requiring authentication
+
+
 ROOT_URLCONF = 'app.urls'
+
 
 TEMPLATES = [
     {
@@ -130,3 +140,54 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+
+LOG_FILE = 'restaurantes.log'
+
+LOGGING = {
+    'version': 1,
+
+    'disable_existing_loggers': False,
+
+    'formatters': {
+
+        'verbose': {
+            'format': "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
+            'datefmt': "%d/%b/%Y %H:%M:%S"
+        },
+
+        'simple': {
+            'format': '%(levelname)s [%(name)s:%(lineno)s] %(message)s'
+        },
+    },
+
+    'handlers': {
+
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, LOG_FILE),
+            'formatter': 'verbose',
+            'mode': 'w'
+        },
+
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose'
+        }
+    },
+
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'propagate': True,
+            'level': 'ERROR',
+        },
+
+        'restaurantes': {
+            'handlers': ['file', 'console'],
+            'level': 'DEBUG',
+        },
+    }
+}

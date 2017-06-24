@@ -1,36 +1,23 @@
-{% extends "layout.html" %} {% block navbar %}
-<ul class="navbar-nav  mr-auto">
-    <li class="nav-item">
-        <a class="nav-link" href="/restaurantes">Listar</a>
-    </li>
-    <li class="nav-item active">
-        <a class="nav-link" href="/restaurantes/aniadir">Añadir<span class="sr-only">(current)</span></a>
-    </li>
-
-</ul>
-<form class="form-inline my-2 my-lg-0" method="get"
-    action="{% url 'buscar' %}">
-     <input class="form-control mr-sm-2" type="text" placeholder="Tipo de cocina" name="cocina">
-     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
-   </form>
-</ul>
-{% endblock %} {% block content %}
-<div class="starter-template">
+{% extends "layout.html" %} {% load bootstrap4 %} {% block content %}
     {% block header %}
-    <h3>Añadir restuarante</h3>
-
-    {% endblock %}
+    <h3>Añadir restuarante</h3> {% endblock %}
     <br />
 
     <form enctype="multipart/form-data" action="{% url 'add' %}" method="post">
-        {% csrf_token %}
-        <table class="table">
+        {% csrf_token %} {% bootstrap_form form %} {% buttons %}
+        <button type="submit" class="btn btn-primary">
+           {% bootstrap_icon "star" %} Añadir
+        </button> {% endbuttons %}
+
+
+
+    </form>
+    <!--<table class="table">
             {{ form }}
             <tr>
                 <th></th>
                 <td><button class="btn" type="submit">Añadir</button></td>
             </tr>
         </table>
-    </form>
-</div>
+    </form>-->
 {% endblock %}

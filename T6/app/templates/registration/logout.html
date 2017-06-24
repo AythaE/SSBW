@@ -1,6 +1,8 @@
 {% extends "layout.html" %}
-{% load i18n %}
 
 {% block content %}
-<p>{% trans "Logged out" %}</p>
+<h3>Cerrando sesión</h3>
+<p>
+    Pulse <a href="{% url 'index' %}">aquí</a> para volver al inicio.
+</p>
 {% endblock %}

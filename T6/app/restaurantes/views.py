@@ -1,17 +1,21 @@
 # -*- coding: utf-8 -*-
+import logging
+
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import HttpResponse, redirect, render
 
 from .forms import RestaurantesForm
 # El punto se refiere al directorio de este archivo
 from .models import addr, image, restaurants
 
-
+logger = logging.getLogger(__name__)
 # Create your views here.
 
 # 2 Funcuones correspondientes al enrutador "urls.py"
 
 
 def index(request):
+  logger.info("Index")
   restaurantes = restaurants.objects
   ultimosRestaurants = list(reversed(
       restaurantes[len(restaurantes) - 10:len(restaurantes)]))
@@ -30,8 +34,11 @@ def test(request):
   return render(request, 'test.html', context)
 
 
+@login_required
 def buscar(request):
   cocina = request.GET.get('cocina')
+  logger.info("Buscando restaurantes de cocina: " + str(cocina))
+
   lista = restaurants.objects(cuisine__icontains=cocina)
 
   context = {
@@ -41,6 +48,7 @@ def buscar(request):
   return render(request, 'buscar.html', context)
 
 
+@login_required
 def add(request):
   formu = RestaurantesForm()
 
@@ -55,6 +63,7 @@ def add(request):
       cocina = formu.cleaned_data['cocina']
       barrio = formu.cleaned_data['barrio']
       calle = formu.cleaned_data['dirección']
+      logger.info("Añadiendo restaurante: " + str(nombre))
 
       # Revisar si esto funciona así
       imagen = request.FILES.get('imagen')
@@ -79,11 +88,12 @@ def add(request):
 # Sacar campo name poniendo () en url.py
 
 
+@login_required
 def restaurante(request, name):
-  print("\n\nMostrando restaurante: " + name)
+  logger.info("Mostrando restaurante: " + name)
+
   resta = restaurants.objects(name__exact=name)[0]
 
-  print(resta)
   context = {
       'resta': resta,
   }
@@ -93,11 +103,12 @@ def restaurante(request, name):
 # /restaurante/nombreRest/imagen/
 
 
+@login_required
 def imagen(request, name):
 
   res = restaurants.objects(name__exact=name)[0]
+  logger.info("Recuperando imagen del restaurante: " + res.name)
 
-  print("\n\n recuperando imagen de: " + res.name)
   img = res.image.img.read()
 
   content_type = res.image.extension

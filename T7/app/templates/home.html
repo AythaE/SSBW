@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    {% block header %}
+    <h3>Últimos restuarantes añadidos</h3>
+
+    {% endblock %}
+    <br />
+    <table class="table table-striped">
+      <thead class="thead-inverse" style="text-align: center;">
+        <tr>
+          <th>Nombre</th>
+          <th>Cocina</th>
+          <th>Dirección</th>
+          <th>Barrio</th>
+        </tr>
+      </thead>
+      <tbody>
+          {% for r in resta %}
+          <tr>
+            <td><a href="/restaurantes/restaurante/{{r.name}}">{{r.name}}</a></td>
+            <td>{{r.cuisine}}</td>
+            <td>{{r.address.street}}</td>
+            <td>{{r.borough}}</td>
+          </tr>
+
+          {% endfor %}
+
+      </tbody>
+    </table>
+{% endblock %}

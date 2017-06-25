@@ -1,0 +1,78 @@
+{% extends "layout.html" %}{% block content %}
+
+{% block header %}
+<h3>{{resta.name}}</h3>
+{% endblock %}
+
+
+
+<img src="/restaurantes/restaurante/{{resta.name}}/imagen" alt="" class="img-rounded center-block">
+
+
+<div class="row" style="margin-top:50px;">
+    <div class="col">
+        <button type="button" class="btn btn-primary" id="btnModal">
+           Consultar dirección del restaurante
+         </button>
+    </div>
+
+
+</div>
+
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Dirección de {{resta.name}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+            </div>
+            <div class="modal-body">
+                <p id="modalText"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#btnModal").click(function() {
+            // Using the core $.ajax() method
+            $.ajax({
+
+                    // The URL for the request
+                    url: "http://maps.googleapis.com/maps/api/geocode/json?address=" + "Bar+" + "{{resta.name}}",
+
+                    data:{},
+
+                    // Whether this is a POST or GET request
+                    type: "GET",
+
+                    // The type of data we expect back
+                    dataType: "json",
+                    // Code to run if the request succeeds (is done);
+                    // The response is passed to the function
+                    success: function(json) {
+
+                        $.each(json.results[0], function(k, v) {
+                            if (k === "formatted_address") {
+                                $("#modalText").html(v);
+                            }
+                        })
+                        $("#myModal").modal();
+                    },
+                    // Code to run if the request fails; the raw request and
+                    // status codes are passed to the function
+                    error:function() {
+                        alert("Ha habido un problema, pruebe con otro restaurante");
+
+                    }
+            })
+        });
+    });
+</script>
+ {% endblock %}

@@ -1,0 +1,23 @@
+{% extends "layout.html" %} {% load bootstrap4 %} {% block content %}
+    {% block header %}
+    <h3>Añadir restuarante</h3> {% endblock %}
+    <br />
+
+    <form enctype="multipart/form-data" action="{% url 'add' %}" method="post">
+        {% csrf_token %} {% bootstrap_form form %} {% buttons %}
+        <button type="submit" class="btn btn-primary">
+           {% bootstrap_icon "star" %} Añadir
+        </button> {% endbuttons %}
+
+
+
+    </form>
+    <!--<table class="table">
+            {{ form }}
+            <tr>
+                <th></th>
+                <td><button class="btn" type="submit">Añadir</button></td>
+            </tr>
+        </table>
+    </form>-->
+{% endblock %}

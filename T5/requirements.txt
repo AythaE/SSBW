@@ -1,7 +1,7 @@
 Jinja2==2.8
 MarkupSafe==0.23
 Pillow==2.6.1
-PyYAML==3.12
+PyYAML==5.4
 Pygments==2.0.1
 SOAPpy==0.12.22
 ansible==2.2.0.0

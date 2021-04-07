@@ -4,7 +4,7 @@ Pillow==2.6.1
 PyYAML==3.12
 Pygments==2.0.1
 SOAPpy==0.12.22
-ansible==2.2.0.0
+ansible==2.10.0
 argparse==1.2.1
 autopep8==1.2.4
 awscli==1.11.24

@@ -54,7 +54,7 @@ s3transfer==0.1.9
 six==1.8.0
 tails-installer==3.11.8
 urlgrabber==3.9.1
-urllib3==1.9.1
+urllib3==1.26.5
 vboxapi==1.0
 wheel==0.24.0
 wsgiref==0.1.2

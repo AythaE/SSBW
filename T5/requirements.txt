@@ -56,6 +56,6 @@ tails-installer==3.11.8
 urlgrabber==3.9.1
 urllib3==1.9.1
 vboxapi==1.0
-wheel==0.24.0
+wheel==0.38.1
 wsgiref==0.1.2
 wstools==0.4.3
